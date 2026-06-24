@@ -33,7 +33,7 @@
 //----------------------------------------------------------------------//
 URecallProjectileSpawnProcessor::URecallProjectileSpawnProcessor()
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::FrameEnd;
 }
 
@@ -145,7 +145,7 @@ void URecallProjectileSpawnProcessor::Execute(FMassEntityManager& EntityManager,
 URecallProjectileInitializeProcessor::URecallProjectileInitializeProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::StartPhysics;
 	ExecutionOrder.ExecuteAfter.Add(Recall::Physics::ProcessorGroupNames::Initialize);
 }
@@ -274,7 +274,7 @@ void URecallProjectileHitSignalProcessor::SignalEntities(FMassEntityManager& Ent
 URecallProjectileStateProcessor::URecallProjectileStateProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PostPhysics;
 	ExecutionOrder.ExecuteBefore.Add(Recall::Hitbox::ProcessorGroupNames::PostPhysics::Hitbox);
 }

@@ -25,7 +25,7 @@
 URecallProjectileHomingProcessor::URecallProjectileHomingProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::StartPhysics;
 }
 

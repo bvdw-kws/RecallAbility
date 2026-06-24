@@ -24,7 +24,7 @@
 URecallAbilityProcessor::URecallAbilityProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::StartPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Ability::ProcessorGroupNames::StartPhysics::Ability;
 	ExecutionOrder.ExecuteAfter.Add(Recall::Ability::ProcessorGroupNames::StartPhysics::Animation);
@@ -118,7 +118,7 @@ static FAutoConsoleVariableRef CVarRecallShowAbility(
 URecallAbilityRepresentationProcessor::URecallAbilityRepresentationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::Render;
 	bRequiresGameThreadExecution = true;
 }

@@ -28,7 +28,7 @@
 URecallAbilityChainDestructor::URecallAbilityChainDestructor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ObservedType = FRecallAbilityChainFragment::StaticStruct();
 	Operation = EMassObservedOperation::Remove;
 }
@@ -77,7 +77,7 @@ void URecallAbilityChainDestructor::Execute(FMassEntityManager& EntityManager, F
 URecallAbilityChainInputProcessor::URecallAbilityChainInputProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PrePhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Ability::ProcessorGroupNames::PrePhysics::AbilityChainInput;
 	ExecutionOrder.ExecuteAfter.Add(Recall::StateTree::ProcessorGroupNames::StateTreeUpdate);
@@ -152,7 +152,7 @@ void URecallAbilityChainInputProcessor::Execute(FMassEntityManager& EntityManage
 URecallAbilityChainProcessor::URecallAbilityChainProcessor(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PrePhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Ability::ProcessorGroupNames::PrePhysics::AbilityChain;
 	ExecutionOrder.ExecuteAfter.Add(Recall::Ability::ProcessorGroupNames::PrePhysics::AbilityChainInput);
@@ -344,7 +344,7 @@ static FAutoConsoleVariableRef CVarRecallAbilityChainInWorldLog(
 URecallAbilityChainDebugRepresentationProcessor::URecallAbilityChainDebugRepresentationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::Render;
 	bRequiresGameThreadExecution = true;
 }

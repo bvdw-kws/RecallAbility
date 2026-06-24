@@ -30,7 +30,7 @@
 URecallHitboxProcessor::URecallHitboxProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PostPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Hitbox::ProcessorGroupNames::PostPhysics::Hitbox;
 }
@@ -263,7 +263,7 @@ void URecallHitboxProcessor::Execute(FMassEntityManager& EntityManager, FMassExe
 URecallHitProcessor::URecallHitProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PostPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Hitbox::ProcessorGroupNames::PostPhysics::Hit;
 	ExecutionOrder.ExecuteAfter.Add(Recall::Hitbox::ProcessorGroupNames::PostPhysics::Hitbox);
@@ -330,7 +330,7 @@ void URecallHitProcessor::Execute(FMassEntityManager& EntityManager, FMassExecut
 URecallResetAttackProcessor::URecallResetAttackProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::PostPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Hitbox::ProcessorGroupNames::PrePhysics::ResetAttack;
 	ExecutionOrder.ExecuteAfter.Add(Recall::Hitbox::ProcessorGroupNames::PostPhysics::Hitbox);
@@ -374,7 +374,7 @@ static FAutoConsoleVariableRef CVarRecallHitboxShowAll(
 URecallHitboxDebugRepresentationProcessor::URecallHitboxDebugRepresentationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::Render;
 	bRequiresGameThreadExecution = true;
 }

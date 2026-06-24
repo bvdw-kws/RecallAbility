@@ -27,7 +27,7 @@
 URecallAbilityAnimationProcessor::URecallAbilityAnimationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::StartPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Ability::ProcessorGroupNames::StartPhysics::Animation;
 }
@@ -258,7 +258,7 @@ void URecallAbilityAnimationProcessor::Execute(FMassEntityManager& EntityManager
 URecallAbilityAnimationSynchronizationProcessor::URecallAbilityAnimationSynchronizationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::EndPhysics;
 	ExecutionOrder.ExecuteInGroup = Recall::Ability::ProcessorGroupNames::EndPhysics::AnimationSync;
 }
@@ -369,7 +369,7 @@ void URecallAbilityAnimationSynchronizationProcessor::Execute(FMassEntityManager
 URecallAbilityAnimationSkeletalMeshRepresentationProcessor::URecallAbilityAnimationSkeletalMeshRepresentationProcessor()
 	: EntityQuery(*this)
 {
-	ExecutionFlags = static_cast<int32>(EExtendedProcessorExecutionFlags::All);
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::Render;
 	bRequiresGameThreadExecution = true;
 }
