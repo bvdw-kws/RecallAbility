@@ -14,7 +14,7 @@
 /**
  * StateTree to customize an ability chain (combo).
  */
-UCLASS(EditInlineNew, CollapseCategories, meta=(DisplayName="MS Ability Chain Behavior Base", CommonSchema))
+UCLASS(EditInlineNew, CollapseCategories, meta=(DisplayName="RE Ability Chain Behavior Base", CommonSchema))
 class RECALLABILITY_API URecallAbilityChainStateTreeSchema : public UStateTreeSchema
 {
 	GENERATED_BODY()

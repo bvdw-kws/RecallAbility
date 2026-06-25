@@ -13,7 +13,7 @@
 /**
 * Trait for entities that can play ability assets.
 */
-UCLASS(meta=(DisplayName="MS Ability"))
+UCLASS(meta=(DisplayName="RE Ability"))
 class RECALLABILITY_API URecallAbilityTrait : public UMassEntityTraitBase
 {
 	GENERATED_BODY()

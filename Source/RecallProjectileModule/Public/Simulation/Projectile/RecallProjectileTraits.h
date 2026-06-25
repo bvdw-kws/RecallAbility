@@ -11,7 +11,7 @@
 
 #include "RecallProjectileTraits.generated.h"
 
-UCLASS(meta=(DisplayName="MS Projectile"))
+UCLASS(meta=(DisplayName="RE Projectile"))
 class RECALLPROJECTILEMODULE_API URecallProjectileTrait : public UMassEntityTraitBase
 {
 	GENERATED_BODY()

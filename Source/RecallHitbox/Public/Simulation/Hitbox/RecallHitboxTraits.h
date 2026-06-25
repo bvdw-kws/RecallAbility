@@ -13,7 +13,7 @@
 /**
 * Trait for entities that can take or perform hit on hitboxes.
 */
-UCLASS(meta=(DisplayName="MS Hitbox"))
+UCLASS(meta=(DisplayName="RE Hitbox"))
 class RECALLHITBOX_API URecallHitboxTrait : public UMassEntityTraitBase
 {
 	GENERATED_BODY()
