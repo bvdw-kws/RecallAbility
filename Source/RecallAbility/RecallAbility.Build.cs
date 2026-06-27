@@ -18,6 +18,7 @@ public class RecallAbility : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] {
 			"Core",
 			"CoreUObject",
+			"JoltPhysicsRuntimeCore",
 			"MassCore",
 			"MassEntity",
 			"MassSpawner",

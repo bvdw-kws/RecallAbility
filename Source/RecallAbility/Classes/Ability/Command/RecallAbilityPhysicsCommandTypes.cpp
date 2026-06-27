@@ -8,7 +8,7 @@
 #include "RecallAbilityPhysicsCommandTypes.h"
 
 #include "Ability/RecallAbilityExecutionTypes.h"
-#include "Data/Physics/RecallPhysicsLayerDataAsset.h"
+#include "Physics/JPRPhysicsLayerDataAsset.h"
 #include "MassEntityView.h"
 #include "Physics/RecallPhysicsObjects.h"
 #include "Simulation/Ability/RecallAbilityFragments.h"
@@ -51,7 +51,7 @@ void FRecallAbilityPhysicsLayerCommand::Execute(const FRecallAbilityExecutionCon
 	const auto* BodyFragmentPtr = Context.GetEntityView().GetFragmentDataPtr<FRecallPhysicsBodyFragment>();
 	URecallPhysicsSubsystem* PhysicsSystemPtr = UWorld::GetSubsystem<URecallPhysicsSubsystem>(Context.GetWorld());
 	check(PhysicsSystemPtr);
-	const TWeakObjectPtr<const URecallPhysicsLayerDataAsset> PhysicsLayer = PhysicsSystemPtr->GetPhysicsLayer();
+	const TWeakObjectPtr<const UJPRPhysicsLayerDataAsset> PhysicsLayer = PhysicsSystemPtr->GetPhysicsLayer();
 	if (BodyFragmentPtr == nullptr || !PhysicsLayer.IsValid())
 	{
 		return;
