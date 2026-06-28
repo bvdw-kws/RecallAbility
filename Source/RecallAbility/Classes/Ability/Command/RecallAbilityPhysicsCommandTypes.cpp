@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2024 Van de Walle Bastien
+// Copyright (C) 2024 Van de Walle Bastien
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -30,8 +30,8 @@ void FRecallAbilityAddForceCommand::Execute(const FRecallAbilityExecutionContext
 	checkf(PhysicsSystemPtr, TEXT("Invalid physics system"));
 	
 	const FMassEntityView EntityView = Context.GetEntityView();
-	const FRecallPhysicsBodyFragment* BodyFragmentPtr = EntityView.GetFragmentDataPtr<FRecallPhysicsBodyFragment>();
-	const FRecallPhysicsBodyView Body = BodyFragmentPtr != nullptr ? PhysicsSystemPtr->GetMutableBody(BodyFragmentPtr->BodyHandle) : nullptr;
+	const FJPRPhysicsBodyFragment* BodyFragmentPtr = EntityView.GetFragmentDataPtr<FJPRPhysicsBodyFragment>();
+	const FJPRPhysicsBodyView Body = BodyFragmentPtr != nullptr ? PhysicsSystemPtr->GetMutableBody(BodyFragmentPtr->BodyHandle) : nullptr;
 	if (!ensureAlwaysMsgf(Body.IsValid(), TEXT("Entity must have a physics body")))
 	{
 		return;
@@ -48,7 +48,7 @@ void FRecallAbilityAddForceCommand::Execute(const FRecallAbilityExecutionContext
 void FRecallAbilityPhysicsLayerCommand::Execute(const FRecallAbilityExecutionContext& Context,
 	ERecallAbilityExecutionEvent Event) const
 {
-	const auto* BodyFragmentPtr = Context.GetEntityView().GetFragmentDataPtr<FRecallPhysicsBodyFragment>();
+	const auto* BodyFragmentPtr = Context.GetEntityView().GetFragmentDataPtr<FJPRPhysicsBodyFragment>();
 	URecallPhysicsSubsystem* PhysicsSystemPtr = UWorld::GetSubsystem<URecallPhysicsSubsystem>(Context.GetWorld());
 	check(PhysicsSystemPtr);
 	const TWeakObjectPtr<const UJPRPhysicsLayerDataAsset> PhysicsLayer = PhysicsSystemPtr->GetPhysicsLayer();

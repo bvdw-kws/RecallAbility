@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2024 Van de Walle Bastien
+// Copyright (C) 2024 Van de Walle Bastien
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -61,11 +61,11 @@ FVector PredictTargetLocation(const FMassEntityManager& EntityManager, const FMa
 
 	FVector TargetVelocity = FVector::ZeroVector;
 
-	if (const auto* BodyFragmentPtr = TargetView.GetFragmentDataPtr<FRecallPhysicsBodyFragment>())
+	if (const auto* BodyFragmentPtr = TargetView.GetFragmentDataPtr<FJPRPhysicsBodyFragment>())
 	{
 		auto* PhysicsSystem = UWorld::GetSubsystem<URecallPhysicsSubsystem>(EntityManager.GetWorld());
 		check(PhysicsSystem);
-		const FRecallPhysicsBodyView Body = PhysicsSystem->GetMutableBody(BodyFragmentPtr->BodyHandle);
+		const FJPRPhysicsBodyView Body = PhysicsSystem->GetMutableBody(BodyFragmentPtr->BodyHandle);
 		if (Body.IsValid())
 		{
 			TargetVelocity = Body.GetLinearVelocity();

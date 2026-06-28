@@ -162,7 +162,7 @@ void URecallProjectileInitializeProcessor::ConfigureQueries(const TSharedRef<FMa
 
 	EntityQuery.AddRequirement<FRecallProjectileFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddRequirement<FRecallTransformFragment>(EMassFragmentAccess::ReadOnly);
-	EntityQuery.AddRequirement<FRecallPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly);
+	EntityQuery.AddRequirement<FJPRPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddTagRequirements<EMassFragmentPresence::None>(InvalidTags);
 	EntityQuery.AddSubsystemRequirement<URecallPhysicsSubsystem>(EMassFragmentAccess::ReadWrite);
 	EntityQuery.AddSubsystemRequirement<URecallSignalSubsystem>(EMassFragmentAccess::ReadWrite);
@@ -176,7 +176,7 @@ void URecallProjectileInitializeProcessor::Execute(FMassEntityManager& EntityMan
 		URecallSignalSubsystem& SignalSystem = Context.GetMutableSubsystemChecked<URecallSignalSubsystem>();
 
 		const TConstArrayView<FRecallProjectileFragment> ProjectileList = Context.GetFragmentView<FRecallProjectileFragment>();
-		const TConstArrayView<FRecallPhysicsBodyFragment> BodyList = Context.GetFragmentView<FRecallPhysicsBodyFragment>();
+		const TConstArrayView<FJPRPhysicsBodyFragment> BodyList = Context.GetFragmentView<FJPRPhysicsBodyFragment>();
 		const TConstArrayView<FRecallTransformFragment> TransformList = Context.GetFragmentView<FRecallTransformFragment>();
 
 		for (int32 EntityIndex = 0; EntityIndex < Context.GetNumEntities(); EntityIndex++)
@@ -193,9 +193,9 @@ void URecallProjectileInitializeProcessor::Execute(FMassEntityManager& EntityMan
 			}
 
 			const FRecallTransformFragment& TransformFragment = TransformList[EntityIndex];
-			const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
+			const FJPRPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
 
-			const FRecallPhysicsBodyView PhysicsBody = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+			const FJPRPhysicsBodyView PhysicsBody = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 
 			if (!ensureMsgf(PhysicsBody.IsValid(), TEXT("Body does not exist.")))
 			{
