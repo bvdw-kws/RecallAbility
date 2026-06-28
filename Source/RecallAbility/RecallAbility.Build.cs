@@ -19,6 +19,7 @@ public class RecallAbility : ModuleRules
 			"Core",
 			"CoreUObject",
 			"JoltPhysicsRuntimeCore",
+			"JoltPhysicsRuntime",
 			"MassCore",
 			"MassEntity",
 			"MassSpawner",
