@@ -65,10 +65,10 @@ FVector PredictTargetLocation(const FMassEntityManager& EntityManager, const FMa
 	{
 		auto* PhysicsSystem = UWorld::GetSubsystem<URecallPhysicsSubsystem>(EntityManager.GetWorld());
 		check(PhysicsSystem);
-		const TWeakPtr<FRecallPhysicsBody> Body = PhysicsSystem->GetMutableBody(BodyFragmentPtr->BodyHandle);
+		const FRecallPhysicsBodyView Body = PhysicsSystem->GetMutableBody(BodyFragmentPtr->BodyHandle);
 		if (Body.IsValid())
 		{
-			TargetVelocity = Body.Pin()->GetLinearVelocity();
+			TargetVelocity = Body.GetLinearVelocity();
 		}
 	}
 

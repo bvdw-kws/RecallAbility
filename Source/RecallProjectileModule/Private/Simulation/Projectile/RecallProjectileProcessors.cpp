@@ -195,7 +195,7 @@ void URecallProjectileInitializeProcessor::Execute(FMassEntityManager& EntityMan
 			const FRecallTransformFragment& TransformFragment = TransformList[EntityIndex];
 			const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
 
-			const TWeakPtr<FRecallPhysicsBody> PhysicsBody = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+			const FRecallPhysicsBodyView PhysicsBody = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 
 			if (!ensureMsgf(PhysicsBody.IsValid(), TEXT("Body does not exist.")))
 			{
@@ -206,7 +206,7 @@ void URecallProjectileInitializeProcessor::Execute(FMassEntityManager& EntityMan
 			const float SpeedPerFrame = Recall::Math::Utils::UnitsPerSecondToPerFrame(ProjectilePtr->Speed);
 			const FVector LinearVelocity = TransformFragment.Rotation.GetForwardVector() * SpeedPerFrame;
 
-			PhysicsBody.Pin()->AddLinearVelocity(LinearVelocity);
+			PhysicsBody.AddLinearVelocity(LinearVelocity);
 
 			if (ProjectilePtr->LifeSpan > 0.0f)
 			{

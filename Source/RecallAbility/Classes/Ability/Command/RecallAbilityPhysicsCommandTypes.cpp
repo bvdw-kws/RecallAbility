@@ -31,7 +31,7 @@ void FRecallAbilityAddForceCommand::Execute(const FRecallAbilityExecutionContext
 	
 	const FMassEntityView EntityView = Context.GetEntityView();
 	const FRecallPhysicsBodyFragment* BodyFragmentPtr = EntityView.GetFragmentDataPtr<FRecallPhysicsBodyFragment>();
-	const TWeakPtr<FRecallPhysicsBody> Body = BodyFragmentPtr != nullptr ? PhysicsSystemPtr->GetMutableBody(BodyFragmentPtr->BodyHandle) : nullptr;
+	const FRecallPhysicsBodyView Body = BodyFragmentPtr != nullptr ? PhysicsSystemPtr->GetMutableBody(BodyFragmentPtr->BodyHandle) : nullptr;
 	if (!ensureAlwaysMsgf(Body.IsValid(), TEXT("Entity must have a physics body")))
 	{
 		return;
@@ -39,7 +39,7 @@ void FRecallAbilityAddForceCommand::Execute(const FRecallAbilityExecutionContext
 
 	const FVector ForceVector = Force * ForceDirection.GetSafeNormal();
 
-	Body.Pin()->AddImpulse(ForceVector);
+	Body.AddImpulse(ForceVector);
 }
 
 //----------------------------------------------------------------------//

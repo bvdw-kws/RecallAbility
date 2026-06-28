@@ -252,15 +252,15 @@ EStateTreeRunStatus FRecallAbilityChainRotateTask::EnterState(FStateTreeExecutio
 	URecallPhysicsSubsystem& PhysicsSystem = Context.GetExternalData(PhysicsSystemHandle);
 	const FRecallPhysicsBodyFragment& BodyFragment = Context.GetExternalData(BodyFragmentHandle);
 
-	const TWeakPtr<FRecallPhysicsBody> Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+	const FRecallPhysicsBodyView Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 	if (Body.IsValid())
 	{
 		FQuat Rotation = FQuat::Identity;
-		Body.Pin()->GetRotation(Rotation);
+		Body.GetRotation(Rotation);
 
 		Rotation *= InstanceData.EnterRotation.Quaternion();
 
-		Body.Pin()->SetRotation(Rotation);
+		Body.SetRotation(Rotation);
 	}
 	
 	return Super::EnterState(Context, Transition);
@@ -276,15 +276,15 @@ void FRecallAbilityChainRotateTask::ExitState(FStateTreeExecutionContext& Contex
 		URecallPhysicsSubsystem& PhysicsSystem = Context.GetExternalData(PhysicsSystemHandle);
 		const FRecallPhysicsBodyFragment& BodyFragment = Context.GetExternalData(BodyFragmentHandle);
 
-		const TWeakPtr<FRecallPhysicsBody> Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+		const FRecallPhysicsBodyView Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 		if (Body.IsValid())
 		{
 			FQuat Rotation = FQuat::Identity;
-			Body.Pin()->GetRotation(Rotation);
+			Body.GetRotation(Rotation);
 
 			Rotation *= InstanceData.EnterRotation.Quaternion().Inverse();
 
-			Body.Pin()->SetRotation(Rotation);
+			Body.SetRotation(Rotation);
 		}
 	}
 }

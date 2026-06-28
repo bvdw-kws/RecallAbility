@@ -78,13 +78,13 @@ void URecallProjectileHomingProcessor::Execute(FMassEntityManager& EntityManager
 			}
 
 			const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
-			const TWeakPtr<FRecallPhysicsBody> Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+			const FRecallPhysicsBodyView Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 			if (!Body.IsValid())
 			{
 				continue;
 			}
 
-			const FVector Velocity = Body.Pin()->GetLinearVelocity();
+			const FVector Velocity = Body.GetLinearVelocity();
 			if (Velocity.IsNearlyZero())
 			{
 				continue;
@@ -111,7 +111,7 @@ void URecallProjectileHomingProcessor::Execute(FMassEntityManager& EntityManager
 				DeltaTime, ProjectilePtr->HomingInterpSpeed);
 			const FVector NewVelocity = NewDirection.GetSafeNormal(UE_SMALL_NUMBER, Direction) * Speed;
 
-			Body.Pin()->SetLinearVelocity(NewVelocity);
+			Body.SetLinearVelocity(NewVelocity);
 		}
 	});
 }
