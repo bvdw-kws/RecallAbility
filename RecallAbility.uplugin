@@ -55,7 +55,8 @@
 		},
 		{
 			"Name": "DebugMenu",
-			"Enabled": true
+			"Enabled": true,
+			"Optional": true
 		}
 	]
 }
