@@ -1,4 +1,4 @@
-// Copyright (C) 2024 Van de Walle Bastien
+﻿// Copyright (C) 2024 Van de Walle Bastien
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -37,7 +37,7 @@ void URecallProjectileHomingProcessor::InitializeInternal(UObject& Owner, const 
 void URecallProjectileHomingProcessor::ConfigureQueries(const TSharedRef<FMassEntityManager>& EntityManager)
 {
 	EntityQuery.AddRequirement<FRecallTransformFragment>(EMassFragmentAccess::ReadOnly);
-	EntityQuery.AddRequirement<FJPRPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly);
+	EntityQuery.AddRequirement<FRecallPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddRequirement<FRecallProjectileFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddTagRequirement<FRecallProjectileHomingTag>(EMassFragmentPresence::All);
 	EntityQuery.AddConstSharedRequirement<FRecallProjectileConstSharedFragment>();
@@ -58,7 +58,7 @@ void URecallProjectileHomingProcessor::Execute(FMassEntityManager& EntityManager
 		const auto& ProjectileConstSharedFragment = Context.GetConstSharedFragment<FRecallProjectileConstSharedFragment>();
 		
 		const TConstArrayView<FRecallTransformFragment> TransformList = Context.GetFragmentView<FRecallTransformFragment>();
-		const TConstArrayView<FJPRPhysicsBodyFragment> BodyList = Context.GetFragmentView<FJPRPhysicsBodyFragment>();
+		const TConstArrayView<FRecallPhysicsBodyFragment> BodyList = Context.GetFragmentView<FRecallPhysicsBodyFragment>();
 		const TConstArrayView<FRecallProjectileFragment> ProjectileList = Context.GetFragmentView<FRecallProjectileFragment>();
 		
 		for (int32 EntityIndex = 0; EntityIndex < Context.GetNumEntities(); EntityIndex++)
@@ -77,8 +77,8 @@ void URecallProjectileHomingProcessor::Execute(FMassEntityManager& EntityManager
 				continue;
 			}
 
-			const FJPRPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
-			const FJPRPhysicsBodyView Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
+			const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
+			const FRecallPhysicsBodyView Body = PhysicsSystem.GetMutableBody(BodyFragment.BodyHandle);
 			if (!Body.IsValid())
 			{
 				continue;

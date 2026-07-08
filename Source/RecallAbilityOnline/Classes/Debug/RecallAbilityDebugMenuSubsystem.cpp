@@ -7,15 +7,17 @@
 
 #include "RecallAbilityDebugMenuSubsystem.h"
 
+#ifdef WITH_DEBUG_MENU
 #include "Debug/DebugMenuInterface.h"
 #include "System/Debug/DebugMenuSubsystem.h"
+#endif // WITH_DEBUG_MENU
 
 void URecallAbilityDebugMenuSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
+
+#ifdef WITH_DEBUG_MENU
 	Collection.InitializeDependency<UDebugMenuSubsystem>();
-	
-#if WITH_DEBUG_MENU
 	DebugMenuSubsystem = UGameInstance::GetSubsystem<UDebugMenuSubsystem>(GetGameInstance());
 	if (DebugMenuSubsystem.IsValid())
 	{
@@ -28,7 +30,7 @@ void URecallAbilityDebugMenuSubsystem::Deinitialize()
 {
 	Super::Deinitialize();
 	
-#if WITH_DEBUG_MENU
+#ifdef WITH_DEBUG_MENU
 	DebugMenuSubsystem.Reset();
 #endif // WITH_DEBUG_MENU
 }
@@ -44,7 +46,7 @@ TStatId URecallAbilityDebugMenuSubsystem::GetStatId() const
 
 void URecallAbilityDebugMenuSubsystem::CreateDebugMenuItems(IDebugMenu& DebugMenu)
 {
-#if WITH_DEBUG_MENU
+#ifdef WITH_DEBUG_MENU
 	// Ability
 	{
 		DebugMenu.AddItem_Bool(TEXT("Ability"), "Show Ability", false, TEXT("Recall.Ability.ShowAll"));

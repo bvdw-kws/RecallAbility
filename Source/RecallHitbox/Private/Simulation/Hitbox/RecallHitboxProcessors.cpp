@@ -78,7 +78,7 @@ void URecallHitboxProcessor::ConfigureQueries(const TSharedRef<FMassEntityManage
 {
 	EntityQuery.AddRequirement<FRecallTransformFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddRequirement<FRecallHitboxFragment>(EMassFragmentAccess::ReadWrite);
-	EntityQuery.AddRequirement<FJPRPhysicsBodyFragment>(EMassFragmentAccess::ReadWrite, EMassFragmentPresence::Optional);
+	EntityQuery.AddRequirement<FRecallPhysicsBodyFragment>(EMassFragmentAccess::ReadWrite, EMassFragmentPresence::Optional);
 	EntityQuery.AddConstSharedRequirement<FRecallHitboxConstSharedFragment>();
 	
 	ProcessorRequirements.AddSubsystemRequirement<URecallSignalSubsystem>(EMassFragmentAccess::ReadWrite);
@@ -176,7 +176,7 @@ void URecallHitboxProcessor::Execute(FMassEntityManager& EntityManager, FMassExe
 
 		const TArrayView<FRecallHitboxFragment> HitboxList = Context.GetMutableFragmentView<FRecallHitboxFragment>();
 		const TConstArrayView<FRecallTransformFragment> TransformList = Context.GetFragmentView<FRecallTransformFragment>();
-		const TConstArrayView<FJPRPhysicsBodyFragment> BodyList = Context.GetFragmentView<FJPRPhysicsBodyFragment>();
+		const TConstArrayView<FRecallPhysicsBodyFragment> BodyList = Context.GetFragmentView<FRecallPhysicsBodyFragment>();
 
 		for (int32 EntityIndex = 0; EntityIndex < Context.GetNumEntities(); EntityIndex++)
 		{
@@ -210,7 +210,7 @@ void URecallHitboxProcessor::Execute(FMassEntityManager& EntityManager, FMassExe
 			// Use entity collider as a vulnerable hit-box
 			if (HitboxConstSharedFragment.bUseColliderBoundsAsHitbox)
 			{
-				const FJPRPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
+				const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
 				
 				FHitboxCollisionCache& HitboxCache = VulnerableEntityCache.CollisionVolumes.AddDefaulted_GetRef();
 				HitboxCache.CollisionTest = Recall::Hitbox::Utils::CreateHitboxTest(
@@ -389,7 +389,7 @@ void URecallHitboxDebugRepresentationProcessor::ConfigureQueries(const TSharedRe
 #if UE_BUILD_DEBUG || UE_BUILD_DEVELOPMENT
 	EntityQuery.AddRequirement<FRecallTransformFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddRequirement<FRecallHitboxFragment>(EMassFragmentAccess::ReadOnly);	
-	EntityQuery.AddRequirement<FJPRPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly, EMassFragmentPresence::Optional);
+	EntityQuery.AddRequirement<FRecallPhysicsBodyFragment>(EMassFragmentAccess::ReadOnly, EMassFragmentPresence::Optional);
 	EntityQuery.AddConstSharedRequirement<FRecallHitboxConstSharedFragment>();	
 
 	ProcessorRequirements.AddSubsystemRequirement<URecallHitboxSubsystem>(EMassFragmentAccess::ReadOnly);
@@ -422,7 +422,7 @@ void URecallHitboxDebugRepresentationProcessor::Execute(FMassEntityManager& Enti
 		
 		const TConstArrayView<FRecallTransformFragment> TransformList = Context.GetFragmentView<FRecallTransformFragment>();
 		const TConstArrayView<FRecallHitboxFragment> HitboxList = Context.GetFragmentView<FRecallHitboxFragment>();
-		const TConstArrayView<FJPRPhysicsBodyFragment> BodyList = Context.GetFragmentView<FJPRPhysicsBodyFragment>();
+		const TConstArrayView<FRecallPhysicsBodyFragment> BodyList = Context.GetFragmentView<FRecallPhysicsBodyFragment>();
 		
 		for (int32 EntityIndex = 0; EntityIndex < Context.GetNumEntities(); EntityIndex++)
 		{
@@ -436,7 +436,7 @@ void URecallHitboxDebugRepresentationProcessor::Execute(FMassEntityManager& Enti
 
 			if (HitboxConstSharedFragment.bUseColliderBoundsAsHitbox && BodyList.IsValidIndex(EntityIndex))
 			{
-				const FJPRPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
+				const FRecallPhysicsBodyFragment& BodyFragment = BodyList[EntityIndex];
 				const FInstancedStruct Hitbox = FInstancedStruct::Make<FRecallHitboxDefinition>(BodyFragment.Extents);
 				
 				Recall::Hitbox::Utils::DrawHitbox(Context.GetWorld(), TransformFragment.GetTransform(), Hitbox, FColor::Red);
