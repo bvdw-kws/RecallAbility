@@ -14,6 +14,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Physics/RecallPhysicsObjects.h"
 #include "Simulation/Physics/RecallPhysicsBodyFragment.h"
+#include "Simulation/Physics/RecallPhysicsProcessorGroupTypes.h"
 #include "Simulation/Projectile/RecallProjectileFragments.h"
 #include "Simulation/Transform/RecallTransformFragments.h"
 #include "System/Physics/RecallPhysicsSubsystem.h"
@@ -27,6 +28,7 @@ URecallProjectileHomingProcessor::URecallProjectileHomingProcessor()
 {
 	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 	ProcessingPhase = EMassProcessingPhase::StartPhysics;
+	ExecutionOrder.ExecuteBefore.Add(Recall::Physics::ProcessorGroupNames::StartSimulation);
 }
 
 void URecallProjectileHomingProcessor::InitializeInternal(UObject& Owner, const TSharedRef<FMassEntityManager>& InEntityManager)
