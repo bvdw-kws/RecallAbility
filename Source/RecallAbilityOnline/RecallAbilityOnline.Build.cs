@@ -22,7 +22,7 @@ public class RecallAbilityOnline : ModuleRules
 			"RecallOnline",
 		});
 
-		if (Target.EnablePlugins.Contains("DebugMenu"))
+		if (RecallCore.IsPluginEnabled(Target, "DebugMenu"))
 		{
 			PrivateDependencyModuleNames.Add("DebugMenu");
 		}
