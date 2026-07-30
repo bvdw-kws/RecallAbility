@@ -8,11 +8,12 @@
 #include "RecallAbilityAnimationProcessors.h"
 
 #include "Animation/RecallAbilityAnimInstance.h"
-#include "Animation/SkeletalMeshActor.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Data/Ability/RecallAbilityAsset.h"
 #include "MassExecutionContext.h"
 #include "RecallSignalSubsystem.h"
-#include "Actor/RecallSkeletalMeshActorRepresentationInterface.h"
+#include "Animation/BlendSpace.h"
+#include "Animation/Skeleton.h"
 #include "Simulation/Ability/RecallAbilityFragments.h"
 #include "Simulation/Ability/RecallAbilityProcessorGroupTypes.h"
 #include "Simulation/Representation/RecallActorRepresentationFragments.h"
@@ -386,18 +387,6 @@ void URecallAbilityAnimationSkeletalMeshRepresentationProcessor::ConfigureQuerie
 	EntityQuery.AddRequirement<FRecallAbilityFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddTagRequirement<FRecallSkeletalMeshActorRepresentationTag>(EMassFragmentPresence::All);
 	EntityQuery.AddSubsystemRequirement<URecallActorSubsystem>(EMassFragmentAccess::ReadOnly);
-}
-
-static USkeletalMeshComponent* GetSkeletalMeshComponent(const TWeakObjectPtr<AActor>& Actor)
-{
-	if (const ASkeletalMeshActor* SkeletalMeshActor = Cast<ASkeletalMeshActor>(Actor.Get()))
-	{
-		return SkeletalMeshActor->GetSkeletalMeshComponent();
-	}
-	else
-	{
-		return IRecallSkeletalMeshActorRepresentationInterface::Execute_GetSkeletalMeshComponent(Actor.Get());
-	}
 }
 
 void URecallAbilityAnimationSkeletalMeshRepresentationProcessor::Execute(FMassEntityManager& EntityManager, FMassExecutionContext& Context)
