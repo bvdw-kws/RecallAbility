@@ -8,6 +8,8 @@
 
 #include "RecallSignalProcessorBase.h"
 
+#include "MassEntityQuery.h"
+
 #include "RecallProjectileProcessors.generated.h"
 
 UCLASS()
